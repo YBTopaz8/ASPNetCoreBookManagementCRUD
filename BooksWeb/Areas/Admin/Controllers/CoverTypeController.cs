@@ -1,26 +1,26 @@
-﻿
-using BooksWeb.DataAccess;
+﻿using BooksWeb.DataAccess;
 using BooksWeb.DataAccess.Repository.IRepository;
 using BooksWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BooksWeb.Controllers
+namespace BooksWeb.Areas.Admin.Controllers
 {
-    public class CategoryController : Controller
+    [Area("Admin")]
+    public class CoverTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CategoryController(IUnitOfWork unitOfWork) //this will have implementation of connection strings
+        public CoverTypeController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _unitOfWork.Category.GetAll(); //go to db, retrieve all Cat, convert to list and send to list. like in python
-            return View(objCategoryList);
+            IEnumerable<CoverType> objCoverTypeList = _unitOfWork.CoverType.GetAll(); //go to db, retrieve all Cat, convert to list and send to list. like in python
+            return View(objCoverTypeList);
+
         }
+
 
         //GET
         public IActionResult Create()
@@ -31,14 +31,14 @@ namespace BooksWeb.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken] //validate on ALL POST REQUESTS (recommended)
-        public IActionResult Create(Category obj)
+        public IActionResult Create(CoverType obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(obj);
+                _unitOfWork.CoverType.Add(obj);
                 _unitOfWork.Save();
-                
-                TempData["success"] = "Category Created Sucessfully";
+
+                TempData["success"] = "Cover Created Sucessfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -47,73 +47,73 @@ namespace BooksWeb.Controllers
         //GET
         public IActionResult Edit(int? id)
         {
-            if (id==null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
             //var categoryFromDb = _db.Categories.Find(id);
-            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);//if more than one element is found, first or default will return the FIRST element and will not throw an exception
+            var CovertypeFromDbFirst = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);//if more than one element is found, first or default will return the FIRST element and will not throw an exception
             //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id); // SINGLE OR DEFAULT() WILL THROUGH AN EXCEPTION
 
-            if (categoryFromDbFirst == null)
+            if (CovertypeFromDbFirst == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDbFirst);
+            return View(CovertypeFromDbFirst);
         }
-       
+
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken] //validate on ALL POST REQUESTS (recommended)
-        public IActionResult Edit(Category obj)
+        public IActionResult Edit(CoverType obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(obj);
+                _unitOfWork.CoverType.Update(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category Edited Sucessfully";
+                TempData["success"] = "CoverType Edited Sucessfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
         }
-        
+
         //GET
         public IActionResult Delete(int? id)
         {
-            if (id==null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var categoryFromDb = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+            var CoverTypeFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
             //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u => u.Id == id);//if more than one element is found, first or default will return the FIRST element and will not throw an exception
             //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id); // SINGLE OR DEFAULT() WILL THROUGH AN EXCEPTION
 
-            if (categoryFromDb == null)
+            if (CoverTypeFromDb == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDb);
+            return View(CoverTypeFromDb);
         }
-       
+
 
         //POST
         [HttpPost /*, ActionName("Delete") THIS IS WHEN YOU WANT TO SPECIFY THE ACTION YOU WANT TO USE*/]
         public IActionResult DeletePOST(int? id)
         {
-            var obj = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+            var obj = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.CoverType.Remove(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Category Deleted Sucessfully";
+            TempData["success"] = "CoverType Deleted Sucessfully";
             return RedirectToAction("Index");
-            
-            return View(obj);
+
+
         }
     }
 }

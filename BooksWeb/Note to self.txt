@@ -11,3 +11,7 @@
 9. Update Database
 
 finished
+
+=============================================================================================================================================
+If migration/updating DB fails because "Introducing FOREIGN KEY constraint 'FK_Products_Categories_CoverTypeId' on table 'Products' may cause cycles" or something like that,
+go to the migration and set that foreign key this way "onDelete: ReferentialAction.SetDefault"
