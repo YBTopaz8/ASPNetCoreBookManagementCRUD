@@ -1,4 +1,6 @@
-using BooksWeb.Data;
+using BooksWeb.DataAccess;
+using BooksWeb.DataAccess.Repository;
+using BooksWeb.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); //this injection is sufficient to take care of all upcoming repositories
 
 var app = builder.Build();
 

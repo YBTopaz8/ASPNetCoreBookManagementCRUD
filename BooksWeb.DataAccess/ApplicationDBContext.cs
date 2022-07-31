@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace BooksWeb.Data
+namespace BooksWeb.DataAccess
 {
     public class ApplicationDBContext : DbContext
     {
@@ -12,7 +12,8 @@ namespace BooksWeb.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CoverType> CoverType { get; set; }
 
-       
+
     }
 }

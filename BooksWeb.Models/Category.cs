@@ -10,6 +10,7 @@ namespace BooksWeb.Models
         [Required]
         [DisplayName("Category Name")]
         public string CategoryName { get; set; }
+
     }
 
     //first add-migration _migration_name_

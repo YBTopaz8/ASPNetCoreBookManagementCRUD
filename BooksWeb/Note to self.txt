@@ -1,0 +1,13 @@
+﻿To add and Implement a new Model, Interface and class,
+
+1. Create your model
+2. Create its public Interface (IModel) as a child to repository<Model>
+3. add the update fxn
+4. Go to IUnitOfWork and add the Interface as get
+5. Go to class UnitOfWork and add the getter and private setter.
+6. Create the class of interface and add the DBContext and contructor, then implement the update fxn.
+7. Go to ApplicationDbContext and add the DbSet of the new Model,
+8. Open the Package Manager Console and add-migration (Make sure your Defaut project is the one which contains ApplicationDbContext)
+9. Update Database
+
+finished
